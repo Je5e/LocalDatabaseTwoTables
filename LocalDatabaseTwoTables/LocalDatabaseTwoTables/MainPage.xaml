@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LocalDatabaseTwoTables"
+             x:Class="LocalDatabaseTwoTables.MainPage">
+
+    <StackLayout>
+        <Label Text="DATOS CATEGORIA:"
+              FontSize="Large"
+              FontAttributes="Bold"/>
+
+        <StackLayout>
+            <Label Text="Category Name:"/>
+            <Entry x:Name="CategoryNameEntry"
+                   Placeholder="Enter Name"/>
+            <Entry x:Name="DescriptionEntry"
+                   Placeholder="Enter Description"/>
+        </StackLayout>
+        <!--Datos de los productos-->
+        <Label Text="DATOS DE LOS PRODUCTOS:"
+               FontAttributes="Bold"
+               FontSize="Large"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Name:"/>
+            <Entry x:Name="ProductNameEntry"
+                   Placeholder="Enter Product name"/>
+            <Button Text="Add" x:Name="btnAdd" Clicked="BtnAdd_Clicked"/>
+        </StackLayout>
+        <ListView x:Name="ListViewProducts">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding ProductName}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Guardar" x:Name="btnGuardar" Clicked="BtnGuardar_Clicked"/>
+    </StackLayout>
+
+</ContentPage>
