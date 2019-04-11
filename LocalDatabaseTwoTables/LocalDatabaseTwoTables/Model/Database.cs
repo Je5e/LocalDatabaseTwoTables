@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 using System.IO;
+using SQLiteNetExtensions.Extensions;
 // LocalDatabaseTwoTables.Model.Database
 namespace LocalDatabaseTwoTables.Model
 {
@@ -29,11 +30,13 @@ namespace LocalDatabaseTwoTables.Model
         public Category CreateCategoryWithChildren(Category toCreate)
         {
             // TODO:
+            Db.InsertWithChildren(toCreate, recursive: true);
+            return toCreate;
         }
 
         public List<Category> GetCategoriesWithChildren()
         {
-            //TODO:
+            return Db.GetAllWithChildren<Category>();
         }
     }
 }
