@@ -30,32 +30,57 @@ namespace LocalDatabaseTwoTables
 
         private void BtnGuardar_Clicked(object sender, EventArgs e)
         {
-            string categoryName = CategoryNameEntry.Text;
-            Database db = new Database();
-            List<Category> categories = db.GetCategoriesWithChildren();
-
-           
-
-            Category newCategory = new Category();
-            newCategory.CategoryName = CategoryNameEntry.Text;
-            newCategory.Description = DescriptionEntry.Text;
-
-            newCategory.Products = new List<Product>();
-
-            // Recorrer la collection Products
-            foreach (Product product in Products)
+            bool Result = VerificarCategory();
+            if (Result)
             {
-                newCategory.Products.Add(product);
+                DisplayAlert
+                    ("Message", "Ya existe nombre de la categoría", "Ok");
+            }
+            else
+            {
+                Database db = new Database();
+                Category newCategory = new Category();
+                newCategory.CategoryName = CategoryNameEntry.Text;
+                newCategory.Description = DescriptionEntry.Text;
 
+                newCategory.Products = new List<Product>();
 
-                // Instancia de Database
-             
-               Category Result = db.CreateCategoryWithChildren(newCategory);
-                if (Result.CategoryID > 0)
+                // Recorrer la collection Products
+                foreach (Product product in Products)
                 {
-                    lblMensaje.Text = "Ok";
+                    newCategory.Products.Add(product);
+
+                    // Instancia de Database
+
+                    Category NewResult = db.CreateCategoryWithChildren(newCategory);
+                    if (NewResult.CategoryID > 0)
+                    {
+                        lblMensaje.Text = "Ok";
+                    }
                 }
             }
+            
         }   
+
+ 
+        private bool VerificarCategory()
+        {
+            // Hay que validar esa regla de negocio. No categorias duplicadas
+            string categoryName = CategoryNameEntry.Text;
+            Database db = new Database();
+            bool Existe = false;
+            List<Category> categories = db.GetCategoriesWithChildren();
+            foreach (Category c in categories)
+            {
+                var text = categoryName.ToUpper();
+                if (c.CategoryName == categoryName)
+                {
+                    Existe = true;
+                    
+                }
+            }
+            return Existe;
+        }
     }
+
 }
