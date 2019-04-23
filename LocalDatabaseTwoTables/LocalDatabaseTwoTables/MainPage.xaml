@@ -33,6 +33,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Label x:Name="lblMensaje"/>
         <Button Text="Guardar" x:Name="btnGuardar" Clicked="BtnGuardar_Clicked"/>
     </StackLayout>
 
