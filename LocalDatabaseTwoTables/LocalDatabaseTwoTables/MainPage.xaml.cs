@@ -48,15 +48,15 @@ namespace LocalDatabaseTwoTables
                 // Recorrer la collection Products
                 foreach (Product product in Products)
                 {
-                    newCategory.Products.Add(product);
+                    newCategory.Products.Add(product); 
+                }
 
-                    // Instancia de Database
-
-                    Category NewResult = db.CreateCategoryWithChildren(newCategory);
-                    if (NewResult.CategoryID > 0)
-                    {
-                        lblMensaje.Text = "Ok";
-                    }
+                // Instancia de Database
+                Category NewResult = db.CreateCategoryWithChildren(newCategory);
+                if (NewResult.CategoryID > 0)
+                {
+                    lblMensaje.Text = "Ok";
+                    lblMensaje.Text += $" ID: {NewResult.CategoryID}";
                 }
             }
             
@@ -69,14 +69,16 @@ namespace LocalDatabaseTwoTables
             string categoryName = CategoryNameEntry.Text;
             Database db = new Database();
             bool Existe = false;
+
             List<Category> categories = db.GetCategoriesWithChildren();
+
             foreach (Category c in categories)
             {
-                var text = categoryName.ToUpper();
+                var text = categoryName.ToUpper(); // Convertir a Mayúsculas
                 if (c.CategoryName == categoryName)
                 {
                     Existe = true;
-                    
+                    return Existe;
                 }
             }
             return Existe;

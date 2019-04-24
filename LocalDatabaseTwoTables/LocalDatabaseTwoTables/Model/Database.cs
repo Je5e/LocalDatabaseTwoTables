@@ -12,6 +12,7 @@ namespace LocalDatabaseTwoTables.Model
     {
         SQLiteConnection Db;
 
+
         public Database() // Constructor
         {
             // Path
@@ -37,6 +38,11 @@ namespace LocalDatabaseTwoTables.Model
         public List<Category> GetCategoriesWithChildren()
         {
             return Db.GetAllWithChildren<Category>();
+        }
+
+        public Category FindCategoryByCategoryName(string categoryName)
+        {
+            return Db.Find<Category>(c => c.CategoryName == categoryName);
         }
     }
 }
