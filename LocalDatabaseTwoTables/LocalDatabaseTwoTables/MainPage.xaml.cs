@@ -74,8 +74,10 @@ namespace LocalDatabaseTwoTables
 
             foreach (Category c in categories)
             {
-                var text = categoryName.ToUpper(); // Convertir a Mayúsculas
-                if (c.CategoryName == categoryName)
+                // Convertir a Mayúsculas
+                string categoryNameBD = c.CategoryName.ToUpper();
+                string categoryNameUser = categoryName.ToUpper();
+                if (categoryNameBD == categoryNameUser)
                 {
                     Existe = true;
                     return Existe;
